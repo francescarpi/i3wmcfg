@@ -3,12 +3,11 @@
 # --------------------------------------------------------------------------
 
 from i3pystatus import Status
-
+    
 status = Status(standalone=True)
 
-# Fehca y hora
-status.register("clock",
-                format="%d/%m/%Y %X",)
+status.register("custom.clock",
+                format="⏰ %d/%m/%Y %H:%M",)
 
 status.register("load")
 
@@ -24,19 +23,26 @@ status.register("battery",
                     "FULL": "=",
                 },)
 
-status.register("network",
+status.register("custom.network",
                 interface="p8p1",
                 format_up="{v4cidr}",)
 
-status.register("wireless",
+status.register("custom.wireless",
                 interface="wlp2s0",
-                format_up="{essid} {quality:03.0f}%",)
+                format_up="{essid} {quality:.0f}%",)
 
 status.register("disk",
                 path="/",
-                format="{used}/{total}G [{avail}G]",)
+                format="⛁ {used}/{total}G [{avail}G]",)
 
-status.register("pulseaudio",
+status.register("mem", format="{avail_mem:.0f} Mb")
+
+status.register("custom.pulseaudio",
                 format="♪{volume}% {muted}",)
+
+status.register("custom.backlight",
+                format="⛭{percentage:.0f}%",
+                backlight="intel_backlight")
+
 
 status.run()
